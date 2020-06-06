@@ -1,8 +1,12 @@
 # import packages
 from flask import Flask
+from flask_bootstrap import Bootstrap
 
 # application object of class Flask
-app = Flask(__name__)
+def create_app():
+  app = Flask(__name__)
+  Bootstrap(app)
+  return app
 
 # import modules
 # views are the handlers that respond to requests from web browsers
