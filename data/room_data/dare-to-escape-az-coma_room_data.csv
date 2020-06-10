@@ -1,0 +1,4 @@
+room_title,woe_room_url,room_address,room_description,player_range,time_limit,difficulty_level,fear_level,age_requirement,success_rate
+"Escape room ""Coma"" by Dare To Escape AZ in Phoenix",https://worldofescapes.com/phoenix/quests/dare-to-escape-az-coma,"9875 S Priest Dr #101 Tempe, AZ 85284","You are part of a team that is working on a device, called the Memory Extraction Machine (MEM). MEM allows a person to experience another person’s memories.
+One evening, you are visited by agents from the CIA. They fly you and the MEM out to a hospital in a neutral country. A CIA agent is in a coma at the hospital.
+You have delved into the memories of the agent, and recover the encryption keys to the data the agent carries. The agent is not doing so well. He does not have much to live. Your task is to recover the encryption keys before he passes away.",2-8,60,Average,Not scary,16+,None
