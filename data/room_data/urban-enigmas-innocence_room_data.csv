@@ -1,0 +1,5 @@
+room_title,woe_room_url,room_address,room_description,player_range,time_limit,difficulty_level,fear_level,age_requirement,success_rate
+"Escape room ""Innocence"" by Urban Enigmas in Athens",https://worldofescapes.com/athens/quests/urban-enigmas-innocence,"10 Huntington Road Unit B70 Athens, GA 30606","You and your group of “accomplices” have been framed and arrested for crimes connected with a ten million dollar diamond heist. Soon the guards will be back to transport the group to the courthouse where you’ll be brought up on charges. You have 60 minutes to decide: do you want to simply escape and live the rest of your life on the run as a fugitive? Or, do you want to prove your innocence by uncovering the person who committed the crime and free yourself from all charges?
+The game can be played in the two following difficulty levels:
+1. Escaping as a fugitive (beginner, 79% success rate)
+2. Proving your innocence (expert, 21% success rate)",2-8,60,Easy,Not scary,,0.79
