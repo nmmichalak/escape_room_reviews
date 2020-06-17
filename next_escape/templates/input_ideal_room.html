@@ -1,0 +1,97 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/starter-template.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">Next Escape</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Search options</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="/input_played_room">Enter escape room you've played before</a>
+              <a class="dropdown-item" href="/input_ideal_room">Enter your ideal escape room</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="container">
+      <div class="starter-template">
+        <form method="POST" role="form">
+            <div class="form-group">
+              <label for="location">Enter a location where you want to search for nearby escape rooms.</label>
+              <input type="text" class="form-control" id="location" name="location" placeholder="Denver, CO, USA">
+            </div>
+            <br/>
+            <div class="form-group">
+              <label for="miles_limit">Enter the distance (in miles) you'd be willing to travel from the location you entered above.</label>
+              <input type="text" class="form-control" id="miles_limit" name="miles_limit" placeholder="25">
+            </div>
+            <br/>
+          <label for="escape_room">Enter features of your ideal escape room.</label>
+          <br/>
+          <div class="btn-group">
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="difficulty_level" name="difficulty_level" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  Difficulty Level
+                </button>
+                <div class="dropdown-menu" aria-labelledby="difficulty_level">
+                    <button class="dropdown-item" type="button">Easy</button>
+                    <button class="dropdown-item" type="button">Average</buttom>
+                    <button class="dropdown-item" type="button">Difficult</button>
+                    <button class="dropdown-item" type="button">Very difficult</button>
+                </div>
+            </div>
+          </div>
+          <div class="btn-group">
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="fear_level" name="fear_level" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  Fear Level
+                </button>
+                <div class="dropdown-menu" aria-labelledby="fear_level">
+                    <button class="dropdown-item" type="button">Not scary</button>
+                    <button class="dropdown-item" type="button">A little scary</buttom>
+                    <button class="dropdown-item" type="button">Scary</button>
+                    <button class="dropdown-item" type="button">Very scary</button>
+                </div>
+            </div>
+          </div>
+          <br/>
+          <br/>
+          <button type="submit" class="btn btn-outline-secondary" name="submit" value="submit">Submit: Find new escape rooms</button>
+          </form>
+      </div>
+    </main>
+    <!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
