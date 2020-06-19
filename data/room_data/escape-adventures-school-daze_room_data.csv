@@ -1,0 +1,18 @@
+room_title,woe_room_url,room_address,room_description,player_range,time_limit,difficulty_level,fear_level,age_requirement,success_rate
+"Escape room ""Edge of Space: Discover the Truth!"" by Escape Adventures in Baltimore",https://worldofescapes.com/baltimore/quests/escape-adventures-school-daze,"2400 Baltimore Blvd Finksburg, MD 21048","…Deep Space Transmission 004 Alpha … received… 
+
+COMMAND> Play Deep Space Transmission 004 Alpha
+
+[VOICE OF DR. STELMAN] “This entity- this alien life form- has taken the crew and the rest of the research team. Only I remain, but I doubt that I will be able to hide much longer. It takes the form of friends, of allies… and kills one by one. Earth Ops- if you get this message, do not send an investigation team. Do not enter Titan Research Six. Destroy the station from orbit. I repeat: Do not send an investigation team. If this alien entity is allowed to escape Titan by infecting a host, Earth will- [SCREAMS]
+
+…Deep Space Transmission 004 Alpha… message end…
+
+COMMAND> Deploy Investigation Team to Titan Research Six. 
+
+Objective of Team: Retrieve Dr. Stelman’s research on Titan and corroborate details of Deep Space Transmission 004 Alpha. Return to ship before orbital strike. 
+
+COMMAND> Begin Countdown Sequence- Set to 1:00
+
+59…
+
+58…",2-10,60,Difficult,Not scary,14+,None

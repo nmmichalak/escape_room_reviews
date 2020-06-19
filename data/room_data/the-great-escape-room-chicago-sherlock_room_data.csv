@@ -1,0 +1,6 @@
+room_title,woe_room_url,room_address,room_description,player_range,time_limit,difficulty_level,fear_level,age_requirement,success_rate
+"Escape room ""Sherlock Holmes' Library"" by The Great Escape Room in Chicago",https://worldofescapes.com/chicago/quests/the-great-escape-room-chicago-sherlock,"160 E Grand Ave #500 Chicago, IL 60611","Sherlock Holmes’ infamy has reached a point where he and Dr. Watson have far more cases than they can handle themselves. To address this problem, Sherlock has decided to train apprentices for a new organization he is creating and you have been given a chance to join this league.
+
+Drawing on their methodical approach in past cases, Holmes and Watson have created a test in the library of their flat at 221b Baker Street. The trial is designed to test your skills in investigation, examination, observation and deductive reasoning to determine your worthiness in joining their league. It won’t be easy though! Since Holmes and Watson frequently have to work quickly to solve their cases, they have limited you to only 60 minutes to prove your worth.
+
+Can you complete Holmes’ test in under 60 minutes and become the newest member of the League of Masters in Elementary Deduction?",2-10,60,Difficult,Not scary,12+,0.35

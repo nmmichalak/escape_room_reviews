@@ -1,0 +1,5 @@
+room_title,woe_room_url,room_address,room_description,player_range,time_limit,difficulty_level,fear_level,age_requirement,success_rate
+"Escape room ""LabEscape"" by LabEscape in Champaign-Urbana",https://worldofescapes.com/champaign/quests/labescape-labescape,"300 S Broadway Ave Urbana, IL 61801","Professor Schrödenberg, one of the world's foremost quantum physicists, was working on a top-secret project for a clandestine government organization.
+But Professor S. disappeared three weeks ago, amidst fears that hostile agents were after her research: creating a quantum computer that could open any digital lock or encrypted message. If such a device fell into the wrong hands, the security of the entire world would be at risk! To make matters worse, the two groups of agents sent to investigate the scientist's secret lab also vanished.
+Now it’s up to you to find out what happened to Professor S., the missing agents, and her breakthrough technology before hostile forces get there first.
+Oh... did we mention that Professor S. is paranoid about intruders in her lab?",4-6,60,Difficult,Not scary,12+,None

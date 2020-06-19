@@ -11,20 +11,14 @@ from geopy import distance
 from next_escape import app
 
 # data
-## read room data
-room_data = pd.read_csv("data/room_data.csv")
+## escape rooms
+escape_rooms = pd.read_csv("data/escape_rooms.csv")
 
-# convert "None" to None
-room_data = room_data.mask(room_data.eq("None"))
+## dissimilarity matrix
+dissimilarity_matrix = pd.read_csv("data/dissimilarity_matrix.csv", index_col = ["city_state_company_room"])
 
-## read city and state data
-state_city_data = pd.read_csv("data/state_city_room_url_df.csv")
-
-## merge
-escape_rooms = room_data.merge(state_city_data, left_on = "woe_room_url", right_on = "woe_room_url", how = "left")
-
-## add city, state - compnay: room variable
-escape_rooms["city_state_company_room"] = [city + ", " + state + " - " + room for city, state, room in zip(escape_rooms["city"], escape_rooms["state"], escape_rooms["company_and_room"])]
+# convert "None" to None in escape rooms data
+escape_rooms = escape_rooms.mask(escape_rooms.eq("None"))
 
 # define functions
 # Geocoder using the Google Maps v3 API
@@ -37,65 +31,38 @@ def get_lat_long(address):
     location = googlev3_locator.geocode(address)
     return location.address, location.latitude, location.longitude
 
-## returns matrix of euclidian distances
-def pairwise_dist(data_frame, features):
-    # full dataset of features 
-    X_full = data_frame.loc[:, features]
-    
-    # imputer parameters (use most frequent value)
-    imputer = SimpleImputer(missing_values = np.nan, strategy = "most_frequent")
-
-    # fit imputation model
-    imputer_fit = imputer.fit(X_full)
-
-    # predict missing values
-    X_predict = imputer_fit.transform(X_full)
-    
-    # distance matrix
-    distance_matrix = pd.DataFrame(
-    # euclidian distances
-    sklearn.metrics.pairwise.euclidean_distances(
-        # standardize ((x - mean / sd))
-        sklearn.preprocessing.StandardScaler().fit_transform(X_predict)
-    ))
-    
-    return distance_matrix
-
 ## returns table of recommended rooms and their information
-def recommend_rooms(user_location, travel_limit, room_played, features = ["min_players", "max_players", "time_limit", "difficulty_int", "success_rate", "fear_int", "minimum_age"], display_var = ["company_and_room", "query_address", "woe_room_url", "miles2room", "dissimilarity", "player_range", "time_limit_str", "difficulty_level", "fear_level", "age_requirement"]):
+def recommend_rooms(user_location, travel_limit, room_played):
     # user location data
     user_address_query, user_latitude, user_longitude = get_lat_long(user_location)
     
     # compute miles away from each room in database
-    miles2room = [round(geopy.distance.geodesic((user_latitude, user_longitude), (room_latitude, room_longitude)).miles, 2) for room_latitude, room_longitude in zip(escape_rooms["room_latitude"], escape_rooms["room_longitude"])]
+    miles2room = [distance.geodesic((user_latitude, user_longitude), (lat, long)).miles if np.isnan(lat) == False else None for lat, long in zip(escape_rooms["room_latitude"], escape_rooms["room_longitude"])]
     
     # add to data frame
     escape_rooms["miles2room"] = miles2room
-
-    # get index for user input game
-    room_played_index = int(escape_rooms["city_state_company_room"][escape_rooms["city_state_company_room"] == room_played].index.to_numpy())
-    
-    # z-score features and compute pairwise euclidian distance matrix
-    escape_room_distances = pairwise_dist(escape_rooms, features).round(2)
     
     # rank rooms based on similarity to room user input
-    rooms_ranked = (escape_room_distances.loc[room_played_index]
-    .sort_values()
-    .to_frame()
-    .reset_index(level = 0)
-    .rename(columns = {"index": "row_number", room_played_index: "dissimilarity"}))
- 
+    rooms_ranked = (dissimilarity_matrix
+                    .loc[room_played]
+                    .sort_values()
+                    .to_frame()
+                    .reset_index()
+                    .rename(columns = {"index": "city_state_company_room", room_played: "dissimilarity"}))
+
     # left join with subset of escape rooms
-    escape_rooms_subset = rooms_ranked.merge(escape_rooms, how = "left", left_on = "row_number", right_index = True)
+    escape_rooms_subset = rooms_ranked.merge(escape_rooms, how = "left", on = "city_state_company_room")
     
     # subset escape rooms to rooms within travel limit
     escape_rooms_subset = escape_rooms_subset.loc[(escape_rooms_subset["miles2room"] <= travel_limit) | (escape_rooms_subset["city_state_company_room"] == room_played), :]
  
     # 3 most similar
-    recommended_rooms = escape_rooms_subset["city_state_company_room"].values[:3].tolist()
-
+    recommended_rooms = escape_rooms_subset["city_state_company_room"].values[:4].tolist()
+    
     # recommendation table
-    return escape_rooms_subset.loc[escape_rooms_subset["city_state_company_room"].isin(recommended_rooms), display_var].sort_values(by = "dissimilarity")
+    recommendation_table = escape_rooms_subset.loc[escape_rooms_subset["city_state_company_room"].isin(recommended_rooms), ["company_and_room", "woe_room_url", "query_address", "miles2room", "player_range", "time_limit_str", "difficulty_level", "success_rate", "fear_level", "minimum_age", "dissimilarity"]].sort_values(by = "dissimilarity")
+
+    return recommendation_table
 
 # input played room search method
 @app.route("/input_played_room", methods = ["POST", "GET"])
@@ -125,16 +92,15 @@ def recommendation_table():
         room_played = flask.request.form["escape_room"]
 
         # data frame of recommendations
-        recommendations = recommend_rooms(user_location = user_location, 
-        travel_limit = travel_limit, 
-        room_played = room_played,
-        features = ["min_players", "max_players", "time_limit", "difficulty_int", "success_rate", "fear_int", "minimum_age"], 
-        display_var = ["company_and_room", "query_address", "woe_room_url", "miles2room", "dissimilarity", "player_range", "time_limit_str", "difficulty_level", "fear_level", "age_requirement"])
+        recommendations = recommend_rooms(user_location = user_location, travel_limit = travel_limit, room_played = room_played)
+
+        # fill nan
+        recommendations = recommendations.fillna("No info")
 
         # rename columns
-        recommendations.columns = ["Company: Escape Room", "Room Address", "Website", "Miles Away", "Dissimilarity Score", "Number of Players", "Time Limit", "Difficulty", "Scary", "Age Requirement"]
+        recommendations.columns = ["Company: Escape Room", "Website", "Room Address", "Miles Away", "Number of Players", "Time Limit", "Difficulty", "Success Rate", "Scariness", "Age Requirement", "Dissimilarity Score"]
         
-        return flask.render_template("recommendations.html", recommendation_table = recommendations.to_html(classes = ["table-hover", "table-striped"], index = False, render_links = True, justify = "center"))
+        return flask.render_template("recommendations.html", recommendation_table = recommendations.to_html(col_space = "4.5cm", classes = ["table-hover", "table-striped"], index = False, float_format = lambda x: "%10.2f" % x, justify = "center", render_links = True))
     else:
         return flask.render_template("input_played_room.html")
 

@@ -1,0 +1,4 @@
+room_title,woe_room_url,room_address,room_description,player_range,time_limit,difficulty_level,fear_level,age_requirement,success_rate
+"Escape room ""Cartel Hostage Escape"" by Escape Challenge in Rochester (MN)",https://worldofescapes.com/rochester-mn/quests/Escape-Challenge-Cartel-Hostage-Escape,"20 6th Street Northwest, Rochester, MN 55901","You are a Special Task Force unit tracking a cartel across the border. Part of your team has now been captured and are being held captive at a cartel safe house.
+The rescue team has found the location where their team members are being held.  They can get into the safe house during the guard change.  They will need to find a way to get the prisoners out of their handcuffs, and the entire team will work together to find a new way out of the room.
+You can choose to have the hostages handcuffed (Difficult) or Not Handcuffed (Moderate).",2-10,60,Difficult,Not scary,10+,None
