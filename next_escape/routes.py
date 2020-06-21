@@ -17,9 +17,6 @@ escape_rooms = pd.read_csv("data/escape_rooms.csv")
 ## imputed feature matrix
 X_features = pd.read_csv("data/X_features.csv", index_col = [0])
 
-## dissimilarity matrix
-dissimilarity_matrix = pd.read_csv("data/dissimilarity_matrix.csv", index_col = ["city_state_company_room"])
-
 # convert "None" to None in escape rooms data
 escape_rooms = escape_rooms.mask(escape_rooms.eq("None"))
 
@@ -83,6 +80,12 @@ def favorite_room(user_location, miles_limit, group_size, youngest_person, user_
     
     # add to data frame
     escape_rooms["miles2room"] = miles2room
+
+    # compute euclidean distance matrix
+    dissimilarity_matrix = pd.DataFrame(
+        sklearn.metrics.euclidean_distances(
+            sklearn.preprocessing.StandardScaler().fit_transform(X_features)
+    ), index = escape_rooms["city_state_company_room"].tolist(), columns = escape_rooms["city_state_company_room"].tolist(), ignore_index = True)
     
     # rank rooms based on similarity to room user input
     rooms_ranked = (dissimilarity_matrix
