@@ -30,8 +30,8 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search options</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Enter escape room you've played before</a>
-              <a class="dropdown-item" href="#">Enter your ideal escape room</a>
+              <a class="dropdown-item" href="/input_favorite_room">Enter your favorite escape room</a>
+              <a class="dropdown-item" href="/input_ideal_room">Enter your ideal escape room</a>
             </div>
           </li>
         </ul>
@@ -39,7 +39,10 @@
     </nav>
 
     <main role="main" class="container">
+      <br/>
         <h1>Recommended Rooms</h1>
+        <br/>
+        <p>The top row displays information about your ideal escape room. The next three rows display information about your recommended escape rooms.</h2>
         <br/>
         {{ recommendation_table | safe }}
       </div>

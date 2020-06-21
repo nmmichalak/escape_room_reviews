@@ -30,7 +30,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search options</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-                <a class="dropdown-item" href="/input_played_room">Enter escape room you've played before</a>
+                <a class="dropdown-item" href="/input_favorite_room">Enter your favorite escape room</a>
                 <a class="dropdown-item" href="/input_ideal_room">Enter your ideal escape room</a>
             </div>
           </li>
@@ -40,19 +40,30 @@
 
     <main role="main" class="container">
       <div class="starter-template">
-        <form method="POST" role="form">
+        <form method="POST" role="form" action="{{ url_for('favorite_recommendation') }}">
             <div class="form-group">
-              <label for="location">Enter a location where you want to search for nearby escape rooms.</label>
-              <input type="text" class="form-control" id="location" name="location" placeholder="Denver, CO, USA">
+              <label for="location" style="font-size:20px;">Enter a location where you want to search for nearby escape rooms.</label>
+              <input type="text" class="form-control" id="location" name="location" size="50" placeholder="Denver, CO, USA">
             </div>
             <br/>
             <div class="form-group">
-              <label for="miles_limit">Enter the distance (in miles) you'd be willing to travel from the location you entered above.</label>
-              <input type="text" class="form-control" id="miles_limit" name="miles_limit" placeholder="25">
+              <label for="miles_limit" style="font-size:20px;">Enter the distance (in miles) you'd be willing to travel from the location you entered above.</label>
+              <input type="text" class="form-control" id="miles_limit" name="miles_limit" size="5" placeholder="25">
             </div>
             <br/>
-          <label for="escape_room">Enter an escape room that you've played before.</label>
-          <input type="text" id="escape_room" name="escape_room" list="escape-rooms-list" autocomplete="on" size="75" placeholder="Denver, Colorado - The Wreck Room Escape Game: The Curse">
+            <div class="form-group">
+              <label for="group_size" style="font-size:20px;">How many people are in your group?</label>
+              <input type="text" class="form-control" id="group_size" name="group_size" size="5" placeholder="5">
+            </div>
+            <br/>
+            <div class="form-group">
+              <label for="youngest_person" style="font-size:20px;">How old is the youngest person in your group?</label>
+              <input type="text" class="form-control" id="youngest_person" name="youngest_person" size="5" placeholder="14">
+            </div>
+            <br/>
+          <label for="escape_room" style="font-size:20px;">Enter your favorite escape room.</label>
+          <br/>
+          <input type="text" id="escape_room" name="escape_room" list="escape-rooms-list" autocomplete="on" size="75" placeholder="Los Angeles, California - Escapade Games: Zoe">
           <datalist id="escape-rooms-list">
             <option>Auburn, Alabama - Auburn Escape Zones: The Cabin</option>
             <option>Auburn, Alabama - Auburn Escape Zones: Imprisoned</option>
