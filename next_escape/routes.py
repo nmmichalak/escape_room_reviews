@@ -61,13 +61,15 @@ def recode_fear(x):
 
 # recode z-scored dissimilarity
 def recode_dissimilarity(d):
-    if d < 0.5:
+    if d == 0:
+        return "The same"
+    elif d > 0 and d < 1:
         return "Very similar"
-    elif d >= 0.5 and d < 1:
+    elif d >= 1 and d < 2:
         return "Pretty similar"
-    elif d >= 1 and d < 1.5:
+    elif d >= 2 and d < 3:
         return "Pretty dissimilar"
-    elif d >= 1.5:
+    elif d >= 3:
         return "Very dissimilar"
 
 ## returns table of recommended rooms and their information
@@ -85,7 +87,7 @@ def favorite_room(user_location, miles_limit, group_size, youngest_person, user_
     dissimilarity_matrix = pd.DataFrame(
         sklearn.metrics.euclidean_distances(
             sklearn.preprocessing.StandardScaler().fit_transform(X_features)
-    ), index = escape_rooms["city_state_company_room"].tolist(), columns = escape_rooms["city_state_company_room"].tolist(), ignore_index = True)
+    ), index = escape_rooms["city_state_company_room"].tolist(), columns = escape_rooms["city_state_company_room"].tolist())
     
     # rank rooms based on similarity to room user input
     rooms_ranked = (dissimilarity_matrix
@@ -121,7 +123,7 @@ def ideal_room(user_location, miles_limit, group_size, youngest_person, time_lim
     escape_rooms["miles2room"] = miles2room
     
     # new row
-    ideal_features = pd.DataFrame({"company_and_room": "Your Ideal Escape Room", "woe_room_url": np.nan, "query_address": user_address_query, "miles2room": 0, "player_range": str(group_size) + " or more", "time_limit_str": time_limit_str, "difficulty_level": difficulty_level, "success_rate": np.nan, "fear_level": fear_level, "minimum_age": str(youngest_person) + "or younger"}, index = [0])
+    ideal_features = pd.DataFrame({"company_and_room": "Your Ideal Escape Room", "woe_room_url": np.nan, "query_address": user_address_query, "miles2room": 0, "player_range": str(group_size) + " or more", "time_limit_str": time_limit_str, "difficulty_level": difficulty_level, "success_rate": np.nan, "fear_level": fear_level, "minimum_age": str(youngest_person) + " or younger"}, index = [0])
     
     # predict success rate
     predict_succes_rate = sklearn.linear_model.LinearRegression().fit(escape_rooms[["success_rate", "difficulty_int"]].dropna().to_numpy()[:, 1].reshape(-1, 1), 
