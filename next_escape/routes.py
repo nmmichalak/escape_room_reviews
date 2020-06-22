@@ -22,7 +22,7 @@ escape_rooms = escape_rooms.mask(escape_rooms.eq("None"))
 
 # define functions
 # Geocoder using the Google Maps v3 API
-api_key = open("google_maps_api_key.txt").readlines()[0]
+api_key = open("next_escape/google_maps_api_key.txt").readlines()[0]
 googlev3_locator = geopy.geocoders.GoogleV3(api_key = api_key)
 
 # address, latitude, and longitude
