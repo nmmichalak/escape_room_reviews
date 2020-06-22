@@ -17,6 +17,12 @@ escape_rooms = pd.read_csv("next_escape/data/escape_rooms.csv")
 ## imputed feature matrix
 X_features = pd.read_csv("next_escape/data/X_features.csv", index_col = [0])
 
+### time limit units in 15 minute interval
+X_features.iloc[:, 0] = X_features.iloc[:, 0] / 15
+
+### success rate units in 0.20 interval
+X_features.iloc[:, 2] = X_features.iloc[:, 2] / 0.20
+
 # convert "None" to None in escape rooms data
 escape_rooms = escape_rooms.mask(escape_rooms.eq("None"))
 
@@ -59,19 +65,6 @@ def recode_fear(x):
     else:
         return "None"
 
-# recode z-scored dissimilarity
-def recode_dissimilarity(d):
-    if d == 0:
-        return "The same"
-    elif d > 0 and d < 1:
-        return "Very similar"
-    elif d >= 1 and d < 2:
-        return "Pretty similar"
-    elif d >= 2 and d < 3:
-        return "Pretty dissimilar"
-    elif d >= 3:
-        return "Very dissimilar"
-
 ## returns table of recommended rooms and their information
 def favorite_room(user_location, miles_limit, group_size, youngest_person, user_room):
     # user location data
@@ -86,7 +79,7 @@ def favorite_room(user_location, miles_limit, group_size, youngest_person, user_
     # compute euclidean distance matrix
     dissimilarity_matrix = pd.DataFrame(
         sklearn.metrics.euclidean_distances(
-            sklearn.preprocessing.StandardScaler().fit_transform(X_features)
+            X_features
     ), index = escape_rooms["city_state_company_room"].tolist(), columns = escape_rooms["city_state_company_room"].tolist())
     
     # rank rooms based on similarity to room user input
@@ -131,17 +124,19 @@ def ideal_room(user_location, miles_limit, group_size, youngest_person, time_lim
     
     # modify variables
     ideal_features = ideal_features.assign(time_limit = time_limit_str.split(" minutes")[0],
+                                           time_limit_scaled = float(time_limit_str.split(" minutes")[0]) / 15,
                                            difficulty_int = recode_difficulty(difficulty_level),
                                            success_rate = predict_succes_rate.predict([[recode_difficulty(difficulty_level)]]),
+                                           success_rate_scaled = predict_succes_rate.predict([[recode_difficulty(difficulty_level)]]) / 0.20,
                                            fear_int = recode_fear(fear_level))
     
     # append features
-    X = np.r_[X_features, ideal_features.loc[:, ["time_limit", "fear_int", "difficulty_int", "success_rate"]]]
+    X = np.r_[X_features, ideal_features.loc[:, ["time_limit_scaled", "fear_int", "difficulty_int", "success_rate_scaled"]]]
     
     # compute euclidean distance matrix
     dissimilarity_matrix = pd.DataFrame(
     sklearn.metrics.euclidean_distances(
-        sklearn.preprocessing.StandardScaler().fit_transform(X)
+        X
     ), index = escape_rooms["city_state_company_room"].append(pd.Series(["Your Ideal Escape Room"]), ignore_index = True), 
     columns = escape_rooms["city_state_company_room"].append(pd.Series(["Your Ideal Escape Room"]), ignore_index = True))
     
