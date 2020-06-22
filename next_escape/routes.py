@@ -12,17 +12,17 @@ from next_escape import app
 
 # data
 ## escape rooms
-escape_rooms = pd.read_csv("../data/escape_rooms.csv")
+escape_rooms = pd.read_csv("next_escape/data/escape_rooms.csv")
 
 ## imputed feature matrix
-X_features = pd.read_csv("../data/X_features.csv", index_col = [0])
+X_features = pd.read_csv("next_escape/data/X_features.csv", index_col = [0])
 
 # convert "None" to None in escape rooms data
 escape_rooms = escape_rooms.mask(escape_rooms.eq("None"))
 
 # define functions
 # Geocoder using the Google Maps v3 API
-api_key = open("../google_maps_api_key.txt").readlines()[0]
+api_key = open("next_escape/google_maps_api_key.txt").readlines()[0]
 googlev3_locator = geopy.geocoders.GoogleV3(api_key = api_key)
 
 # address, latitude, and longitude
