@@ -3,6 +3,7 @@ import flask
 import pandas as pd
 import numpy as np
 import sklearn
+from sklearn import linear_model
 from sklearn.impute import SimpleImputer
 import geopy
 from geopy import distance
@@ -119,7 +120,7 @@ def ideal_room(user_location, miles_limit, group_size, youngest_person, time_lim
     ideal_features = pd.DataFrame({"company_and_room": "Your Ideal Escape Room", "woe_room_url": np.nan, "query_address": user_address_query, "miles2room": 0, "player_range": str(group_size) + " or more", "time_limit_str": time_limit_str, "difficulty_level": difficulty_level, "success_rate": np.nan, "fear_level": fear_level, "minimum_age": str(youngest_person) + " or younger"}, index = [0])
     
     # predict success rate
-    predict_succes_rate = sklearn.linear_model.LinearRegression().fit(escape_rooms[["success_rate", "difficulty_int"]].dropna().to_numpy()[:, 1].reshape(-1, 1), 
+    predict_succes_rate = linear_model.LinearRegression().fit(escape_rooms[["success_rate", "difficulty_int"]].dropna().to_numpy()[:, 1].reshape(-1, 1), 
                                                                       escape_rooms[["success_rate", "difficulty_int"]].dropna().to_numpy()[:, 0].reshape(-1, 1))
     
     # modify variables
