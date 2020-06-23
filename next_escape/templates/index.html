@@ -20,7 +20,7 @@
   <body>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#">Next Escape</a>
+      <a class="navbar-brand" href="/">Next Escape</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -30,8 +30,8 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search options</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Enter escape room you've played before</a>
-              <a class="dropdown-item" href="#">Enter your ideal escape room</a>
+              <a class="dropdown-item" href="/input_favorite_room">Enter your favorite escape room</a>
+              <a class="dropdown-item" href="/input_ideal_room">Enter your ideal escape room</a>
             </div>
           </li>
         </ul>
@@ -39,8 +39,16 @@
     </nav>
 
     <main role="main" class="container">
+      <br/>
       <h1>Next Escape</h1>
-      <h2>Find your next escape room</h2>
+      <h2><i>Find your next escape room</i></h2>
+      <p style="font-size:150%;">
+        Next Escape helps you find your next escape room based on one of two search options:
+        <ol style="font-size:125%;">
+        <li> <a href="/input_favorite_room"><b>Select your favorite escape room from a list</b></a>, and Next Escape will recommend escape rooms that are similar to your favorite escape room.</li>
+        <li> <a href="/input_ideal_room"><b>Pick features of your ideal escape room</b></a>, and Next Escape will recommend escape rooms that are similar to your favorite escape room.</li>
+        </ol>
+      </p>
     </main>
     <!-- /.container -->
 

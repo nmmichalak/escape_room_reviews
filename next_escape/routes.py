@@ -28,7 +28,7 @@ escape_rooms = escape_rooms.mask(escape_rooms.eq("None"))
 
 # define functions
 # Geocoder using the Google Maps v3 API
-api_key = open("google_maps_api_key.txt").readlines()[0]
+api_key = open("next_escape/google_maps_api_key.txt").readlines()[0]
 googlev3_locator = geopy.geocoders.GoogleV3(api_key = api_key)
 
 # address, latitude, and longitude
@@ -164,6 +164,11 @@ def ideal_room(user_location, miles_limit, group_size, youngest_person, time_lim
     recommendation_table.loc[0, ["company_and_room", "woe_room_url", "query_address", "miles2room", "player_range", "time_limit_str", "difficulty_level", "success_rate", "fear_level", "minimum_age"]] = ideal_features.loc[0, ["company_and_room", "woe_room_url", "query_address", "miles2room", "player_range", "time_limit_str", "difficulty_level", "success_rate", "fear_level", "minimum_age"]].tolist()
     
     return recommendation_table
+
+# index
+@app.route("/")
+def index():
+    return flask.render_template("index.html")
 
 # input played room search method
 @app.route("/input_favorite_room", methods = ["POST", "GET"])
