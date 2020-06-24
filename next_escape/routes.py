@@ -8,6 +8,9 @@ from sklearn.impute import SimpleImputer
 import geopy
 from geopy import distance
 
+# pandas column width
+pd.set_option("display.max_colwidth", -1)
+
 # import app
 from next_escape import app
 
